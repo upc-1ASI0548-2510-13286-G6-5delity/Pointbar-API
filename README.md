@@ -1,6 +1,8 @@
 
 # REST API para Sistema de Gestión de Bares
 
+![API Swagger](https://i.postimg.cc/3xgMSk3R/APIREST.png)
+
 ## Descripción del Proyecto
 
 Este proyecto es un sistema de gestión para bares, diseñado para facilitar la administración de mesas, bebidas y ventas. Permite a los dueños y empleados registrar mesas, gestionar el inventario de bebidas, y llevar un control detallado de las ventas realizadas en el establecimiento.
