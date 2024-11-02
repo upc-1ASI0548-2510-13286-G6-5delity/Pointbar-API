@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT}
+  port: 8082
 spring:
   config:
     import:
@@ -22,5 +22,5 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET}
-    expiration: ${JWT_EXPIRATION}
+    secret: 25b7a43d729dab37268a688c046de100d823c8573a0069857121218c0ff1f8acb50ac9ed71168774df50a8f6130069bacba20845998c06a20e964afa54f2e75a
+    expiration: 86400000
