@@ -8,14 +8,12 @@ import com.metasoft.pointbarmetasoft.tablemanagement.application.dtos.requestDto
 import com.metasoft.pointbarmetasoft.tablemanagement.application.dtos.responseDto.TableSpaceResponseDto;
 import com.metasoft.pointbarmetasoft.tablemanagement.domain.entities.TableSpace;
 import com.metasoft.pointbarmetasoft.tablemanagement.infraestructure.repositories.TableSpaceRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
-import org.modelmapper.ModelMapper;
+import org.modelmapper.*;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.IOException;

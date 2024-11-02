@@ -91,8 +91,8 @@ class BeverageServiceImplTest {
         ApiResponse<?> response = beverageService.createBeverage(requestDto, businessId);
 
         // Assert
-        assertTrue(response.getSuccess(), "Expected success response but got failure");
-        assertEquals("Beverage created successfully", response.getMessage(), "The message returned was not as expected.");
+        assertTrue(response.getSuccess());
+        assertEquals("Beverage created successfully", response.getMessage());
         verify(beverageRepository, times(1)).save(any(Beverage.class));
     }
 

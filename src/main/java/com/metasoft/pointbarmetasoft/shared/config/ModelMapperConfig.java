@@ -1,5 +1,5 @@
 package com.metasoft.pointbarmetasoft.shared.config;
-import org.modelmapper.ModelMapper;
+import org.modelmapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
