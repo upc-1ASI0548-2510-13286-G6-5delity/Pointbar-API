@@ -7,7 +7,7 @@ spring:
   application:
     name: pointbar_application
   datasource:
-    url: ${DB_URL}
+    url: jdbc:mysql://pointbarmetasoft.mysql.database.azure.com/pointbar_db
     username: adminsoft
     password: dB.B0e0y!Jex>JTR1u6GyFXg3
     driver-class-name: com.mysql.cj.jdbc.Driver
