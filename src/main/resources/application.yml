@@ -8,8 +8,8 @@ spring:
     name: pointbar_application
   datasource:
     url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    username: adminsoft
+    password: dB.B0e0y!Jex>JTR1u6GyFXg3
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
