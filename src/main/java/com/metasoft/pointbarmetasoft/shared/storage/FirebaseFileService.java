@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Service
 public class FirebaseFileService {
-    @Value("${FIREBASE_CREDENTIALS}")
+    @Value("${firebase.credentials}")
     private String firebaseCredentials;
     private Storage storage;
 

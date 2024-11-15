@@ -1,25 +1,29 @@
 server:
-  port: 8082
+  port: ${SERVER_PORT}
 spring:
-  config:
-    import:
-      - env.properties
+  #config:
+    #import:
+      #- env.properties
   application:
     name: pointbar_application
   datasource:
-    url: jdbc:mysql://pointbarmetasoft.mysql.database.azure.com/pointbar_db
-    username: adminsoft
-    password: dB.B0e0y!Jex>JTR1u6GyFXg3
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
 
 app:
   jwt:
-    secret: 25b7a43d729dab37268a688c046de100d823c8573a0069857121218c0ff1f8acb50ac9ed71168774df50a8f6130069bacba20845998c06a20e964afa54f2e75a
-    expiration: 86400000
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
+
+firebase:
+  credentials: ${FIREBASE_CREDENTIALS}
