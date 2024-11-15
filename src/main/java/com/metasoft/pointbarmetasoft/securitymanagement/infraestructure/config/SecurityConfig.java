@@ -56,8 +56,7 @@ public class SecurityConfig {
         http.cors(cors -> cors
                 .configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
-                    //corsConfiguration.setAllowedOrigins(Arrays.asList("https://pointbar-renovation.web.app/"));
-                    corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+                    corsConfiguration.setAllowedOrigins(Arrays.asList("https://pointbar-renovation.web.app/", "http://localhost:4200"));
                     corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
                     corsConfiguration.setAllowCredentials(true);

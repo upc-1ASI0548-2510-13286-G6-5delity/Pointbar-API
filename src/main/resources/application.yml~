@@ -14,9 +14,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         show_sql: true
 
 app:
