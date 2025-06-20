@@ -51,6 +51,11 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
+      - name: Rename JAR to app.jar
+        run: |
+          JAR_FILE=$(find target -name "*.jar" | head -n 1)
+          cp "$JAR_FILE" app.jar
+
       # 4. Sube archivos al servidor remoto (incluyendo el .jar generado)
       - name: Copy files to Azure VM
         uses: appleboy/scp-action@v0.1.4
@@ -61,7 +66,7 @@ jobs:
           source: |
             docker-compose.yml
             Dockerfile
-            target/*.jar
+            app.jar
             application.yml
           target: /home/${{ secrets.AZURE_USER }}/app
 
