@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copia el JAR generado al contenedor
-COPY target/*.jar app.jar
+COPY app.jar app.jar
 
 # Copia el archivo .env.properties al contenedor
 COPY .env.properties /app/.env.properties
