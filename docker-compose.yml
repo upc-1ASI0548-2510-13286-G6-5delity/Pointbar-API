@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pointbar-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pointbardatabase
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: tJsbJwX4qqWVZv6slsi6t8AWx3EKKbG8
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pointbar-app:
+    build: .
+    container_name: pointbar-app
+    depends_on:
+      - postgres
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      DB_URL: jdbc:postgresql://pointbar-db:5432/pointbardatabase
+      DB_USER: root
+      DB_PASS: tJsbJwX4qqWVZv6slsi6t8AWx3EKKbG8
+      JWT_SECRET: 25b7a43d729dab37268a688c046de100d823c8573a0069857121218c0ff1f8acb50ac9ed71168774df50a8f6130069bacba20845998c06a20e964afa54f2e75a
+      JWT_EXPIRATION: 86400000
+      FIREBASE_CREDENTIALS: >
+        {"type": "service_account", "project_id": "pointbar-application", "private_key_id": "294ba706331f71c2562cc4f98398e73d442ef35f", "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEv...", "client_email": "firebase-adminsdk-spm92@pointbar-application.iam.gserviceaccount.com", "client_id": "111200417194139931514", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-spm92%40pointbar-application.iam.gserviceaccount.com", "universe_domain": "googleapis.com"}
+    restart: unless-stopped
+
+volumes:
+  pgdata:
