@@ -52,6 +52,11 @@ jobs:
         run: mvn clean package -DskipTests
         working-directory: backend
 
+      - name: Rename JAR to app.jar
+        run: |
+          JAR=$(find backend/target -name "*.jar" | head -n 1)
+          cp "$JAR" backend/target/app.jar
+
       # 4. Verificar que el JAR fue generado
       - name: List generated JAR
         run: ls -lh backend/target/
