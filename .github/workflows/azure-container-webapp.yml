@@ -44,7 +44,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
+          
+      - name: Verificar que el JAR existe
+        run: |
+          echo "Archivos generados en target/:"
+          ls -lh target
+          
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
