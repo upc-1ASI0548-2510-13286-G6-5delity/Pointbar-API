@@ -40,28 +40,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Configurar Java 17 para compilar
+      # 2. Configurar JDK 17 (para compilar)
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'  # Compatible con OpenJDK
+          distribution: 'temurin'
           java-version: '17'
 
-      # 3. Compilar el proyecto en la carpeta /backend
+      # 3. Compilar el proyecto con Maven
       - name: Build with Maven
         run: mvn clean package -DskipTests
-        working-directory: backend
 
+      # 4. Renombrar el JAR generado a app.jar
       - name: Rename JAR to app.jar
         run: |
-          JAR=$(find backend/target -name "*.jar" | head -n 1)
-          cp "$JAR" backend/target/app.jar
+          JAR=$(find target -name "*.jar" | head -n 1)
+          cp "$JAR" app.jar
 
-      # 4. Verificar que el JAR fue generado
-      - name: List generated JAR
-        run: ls -lh backend/target/
+      # 5. Mostrar contenido para verificar
+      - name: Debug - Mostrar archivos antes de copiar
+        run: |
+          ls -lh app.jar
+          ls -lh docker-compose.yml || echo "⚠️ docker-compose.yml no encontrado"
+          ls -lh Dockerfile || echo "⚠️ Dockerfile no encontrado"
+          ls -lh .env.properties || echo "⚠️ .env.properties no encontrado"
 
-      # 5. Subir archivos a la VM Azure
+      # 6. Copiar archivos necesarios a la VM
       - name: Copy files to Azure VM
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -69,13 +73,13 @@ jobs:
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_KEY }}
           source: |
-            backend/target/*.jar
+            app.jar
             docker-compose.yml
             Dockerfile
             .env.properties
           target: /home/${{ secrets.AZURE_USER }}/app
 
-      # 6. Conectarse a la VM y levantar el contenedor
+      # 7. SSH y despliegue con Docker Compose
       - name: SSH into Azure VM and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
