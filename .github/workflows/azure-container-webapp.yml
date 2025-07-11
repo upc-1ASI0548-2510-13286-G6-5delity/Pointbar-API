@@ -29,30 +29,34 @@ name: Build and Deploy PointBar Backend to Azure VM
 on:
   push:
     branches:
-      - main
+      - main  # Cambia si usas otra rama
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Clonar el código
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Configurar Java 17 para compilar
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'temurin'  # Compatible con OpenJDK
           java-version: '17'
-          
-      - name: Verificar que el JAR existe
-        run: |
-          echo "Archivos generados en target/:"
-          ls -lh target
-          
+
+      # 3. Compilar el proyecto en la carpeta /backend
       - name: Build with Maven
         run: mvn clean package -DskipTests
+        working-directory: backend
 
+      # 4. Verificar que el JAR fue generado
+      - name: List generated JAR
+        run: ls -lh backend/target/
+
+      # 5. Subir archivos a la VM Azure
       - name: Copy files to Azure VM
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -60,12 +64,13 @@ jobs:
           username: ${{ secrets.AZURE_USER }}
           key: ${{ secrets.AZURE_KEY }}
           source: |
+            backend/target/*.jar
             docker-compose.yml
             Dockerfile
-            target/*.jar
             .env.properties
           target: /home/${{ secrets.AZURE_USER }}/app
 
+      # 6. Conectarse a la VM y levantar el contenedor
       - name: SSH into Azure VM and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
